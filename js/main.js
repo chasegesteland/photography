@@ -4,35 +4,58 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeBtn = document.querySelector('.close-btn');
     const galleryImages = document.querySelectorAll('.gallery-container img');
 
-    // 1. Open lightbox and bind image source
+    // --- Helper Functions for Opening/Closing ---
+
+    const openLightbox = (src) => {
+        // Clear old src just in case there's lag, then set new
+        lightboxImg.src = '';
+        lightboxImg.src = src;
+        
+        // Add the CSS class to trigger the transition
+        lightbox.classList.add('active');
+        
+        // Prevent background scrolling
+        document.body.style.overflow = 'hidden'; 
+    };
+
+    const closeLightbox = () => {
+        // Remove the CSS class to trigger the reverse transition
+        lightbox.classList.remove('active');
+        
+        // Restore background scrolling
+        document.body.style.overflow = '';
+        
+        /* Crucial for smooth UX: We do NOT clear lightboxImg.src here. 
+           We let the image fade out with the lightbox. 
+           If we cleared it instantly, you'd see the image disappear 
+           while the black background was still fading.
+        */
+    };
+
+    // --- Event Listeners ---
+
+    // 1. Click on Gallery Image
     galleryImages.forEach(img => {
         img.addEventListener('click', (e) => {
-            lightbox.style.display = 'flex';
-            lightboxImg.src = e.target.src;
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            openLightbox(e.target.src);
         });
     });
 
-    // 2. Define close function
-    const closeLightbox = () => {
-        lightbox.style.display = 'none';
-        lightboxImg.src = '';
-        document.body.style.overflow = 'auto'; // Restore background scrolling
-    };
-
-    // 3. Close via 'X' button
+    // 2. Click Close Button
     closeBtn.addEventListener('click', closeLightbox);
 
-    // 4. Close via clicking background overlay
+    // 3. Click the Black Overlay/Background
     lightbox.addEventListener('click', (e) => {
+        // Only close if the background itself was clicked (not the image)
         if (e.target === lightbox) {
             closeLightbox();
         }
     });
 
-    // 5. Close via Escape key
+    // 4. Press Escape Key
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && lightbox.style.display === 'flex') {
+        // Check if Escape was pressed AND if lightbox is actually open
+        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
             closeLightbox();
         }
     });

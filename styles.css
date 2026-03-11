@@ -94,7 +94,8 @@ body {
     }
 }
 
-/* Add visual feedback to gallery grid images */
+/* --- Optimized Lightbox CSS for Smooth Transitions --- */
+
 .gallery-container img {
     cursor: pointer;
     transition: opacity 0.2s ease-in-out;
@@ -106,7 +107,8 @@ body {
 
 /* Lightbox Modal Overlay */
 .lightbox {
-    display: none; /* Hidden by default */
+    /* Critical Change: Use opacity and visibility instead of display: none */
+    display: flex; 
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -116,16 +118,53 @@ body {
     background-color: rgba(0, 0, 0, 0.95);
     justify-content: center;
     align-items: center;
-    backdrop-filter: blur(4px); /* Requires modern browser support */
+    backdrop-filter: blur(4px);
+    
+    /* Pre-animation state (hidden) */
+    opacity: 0;
+    visibility: hidden;
+    
+    /* Defines the animation curve. 0.3s is 'quick but smooth'. */
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
 }
 
-/* Constrain enlarged image to viewport */
+/* Target State (When Lightbox is Active) */
+.lightbox.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Enlarged image styling with added scale animation */
 .lightbox-content {
+    /* 1. Constraint (Existing, ensures it fits the viewport) */
     max-width: 90vw;
     max-height: 90vh;
     object-fit: contain;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+    
+    /* 2. Frame Styling (The New Additions) */
+    background-color: #ffffff; /* Sets the frame color */
+    
+    /* Creates the gap between the image edge and the shadow. 
+       Adjust this number (e.g., 10px, 30px) for a thinner/thicker mat. */
+    padding: 40px; 
+    
+    /* Optional slight corner rounding */
+    border-radius: 4px; 
+    
+    /* 3. Shadow adjustment (Existing, but made slightly sharper) */
+    box-shadow: 0 16px 48px rgba(0,0,0,0.85);
+    
+    /* 4. Utilities (Existing) */
     user-select: none;
+    
+    /* 5. Animation (Existing from previous step) */
+    transform: scale(0.95);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Scale image up when active */
+.lightbox.active .lightbox-content {
+    transform: scale(1);
 }
 
 /* Close Button */
