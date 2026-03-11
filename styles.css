@@ -200,6 +200,69 @@ body {
     line-height: 1.4;
 }
 
+/* --- Lightbox Navigation Arrows --- */
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
+    color: #ffffff;
+    border: none;
+    font-size: 2rem;
+    padding: 16px 20px;
+    cursor: pointer;
+    z-index: 1010;
+    user-select: none;
+    transition: background-color 0.2s ease-in-out;
+    border-radius: 4px;
+}
+
+@media (hover: hover) {
+    .nav-btn:hover {
+        background-color: rgba(0, 0, 0, 0.9);
+    }
+}
+
+/* Responsive adjustments for Mobile (Screens smaller than 768px) */
+@media (max-width: 767px) {
+    .lightbox-content {
+        max-height: 60vh; /* Shrinks the image to make room for text */
+        padding: 15px;    /* Slightly tighter frame for small screens */
+    }
+
+    .lightbox-caption {
+        margin-top: 15px;
+        max-width: 90vw;  /* Allows text to use more horizontal space */
+    }
+
+    .lightbox-caption h3 {
+        font-size: 1.1rem;
+    }
+
+    .lightbox-caption p {
+        font-size: 0.85rem;
+    }
+    
+    /* Optional: Hide the side arrows on mobile to reduce clutter, 
+       since we added swipe support */
+    .nav-btn {
+        display: none; 
+    }
+}
+
+.prev-btn {
+    left: 20px;
+}
+
+.next-btn {
+    right: 20px;
+}
+
+/* Ensure the image sits below the buttons */
+.lightbox-content {
+    z-index: 1005; 
+}
+
 /* Close Button */
 .close-btn {
     position: absolute;
