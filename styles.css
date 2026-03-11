@@ -1,0 +1,95 @@
+/* Base Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #111;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Navigation Bar */
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #eaeaec;
+}
+
+.nav-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #333;
+}
+
+/* Header */
+.portfolio-header {
+    text-align: center;
+    padding: 60px 20px 50px;
+}
+
+.portfolio-header h1 {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+}
+
+.portfolio-header p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 16px;
+}
+
+.contact-link {
+    font-size: 14px;
+    color: #111;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.contact-link:hover {
+    text-decoration: underline;
+}
+
+/* Masonry Gallery Layout */
+.gallery-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    
+    /* CSS Columns handle the masonry effect */
+    column-count: 3;
+    column-gap: 24px;
+}
+
+.gallery-container img {
+    width: 100%;
+    display: block;
+    margin-bottom: 24px;
+    border-radius: 2px;
+    /* Prevents images from splitting across columns */
+    break-inside: avoid; 
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 900px) {
+    .gallery-container {
+        column-count: 2;
+    }
+}
+
+@media (max-width: 600px) {
+    .gallery-container {
+        column-count: 1;
+        padding: 0 16px 40px;
+    }
+}

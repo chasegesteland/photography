@@ -1,0 +1,29 @@
+# OS Generated Files (macOS)
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.AppleDouble
+.LSOverride
+
+# High-Resolution & Raw Photography Assets
+# Excludes master directories and lossless formats to maintain repo limits and protect assets
+master-files/
+*.tiff
+*.tif
+*.psd
+*.psb
+*.dng
+*.raw
+*.cr2
+*.cr3
+*.nef
+*.arw
+
+# IDE / Editor Directories
+.vscode/
+
+# Node Modules (If a build process or backend is added later)
+node_modules/
+npm-debug.log
