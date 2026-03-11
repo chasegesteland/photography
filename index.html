@@ -26,17 +26,33 @@
 
     <header class="portfolio-header">
         <h1>Chase Gesteland</h1>
-        <p>Some of my photography</p>
+        <p>Some of my stuff</p>
         <a href="#contact" class="contact-link">Contact</a>
     </header>
 
     <main class="gallery-container">
-       <img src="web-ready/mussels_large_final.jpg" alt="Black and white picture of mussels on a rock">
+       <img src="web-ready/mussels_large_final.jpg" 
+         alt="Black and white photo of Mussels"
+         data-title="Mussels"
+         data-description="4x5 HP5+, 2026">
+        <img src="web-ready/daft600crop.jpg" 
+         alt="Abstract red, yellow, white and blue polaroid photo with a daft punk helmet"
+         data-title="Daftendirekt"
+         data-description="Manipulated Polaroid 600 i-Type, 2026">
+
     </main>
 
     <div id="lightbox" class="lightbox">
+        <span class="close-btn">&times;</span>
+        <img class="lightbox-content" id="lightbox-img" alt="Enlarged photograph">
+    
+        <div id="lightbox-caption" class="lightbox-caption">
+            <h3 id="lightbox-title"></h3>
+            <p id="lightbox-desc"></p>
+        </div>
+    </div>
+
     <span class="close-btn">&times;</span>
-    <img class="lightbox-content" id="lightbox-img" alt="Enlarged photograph">
 </div>
 </body>
 </html>

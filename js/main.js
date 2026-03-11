@@ -2,61 +2,67 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const closeBtn = document.querySelector('.close-btn');
-    const galleryImages = document.querySelectorAll('.gallery-container img');
+    
+    // Convert NodeList to an Array to utilize index tracking
+    const galleryImages = Array.from(document.querySelectorAll('.gallery-container img'));
+    
+    const lightboxTitle = document.getElementById('lightbox-title');
+    const lightboxDesc = document.getElementById('lightbox-desc');
 
-    // --- Helper Functions for Opening/Closing ---
+    let currentIndex = 0; // State variable for active image
 
-    const openLightbox = (src) => {
-        // Clear old src just in case there's lag, then set new
-        lightboxImg.src = '';
-        lightboxImg.src = src;
-        
-        // Add the CSS class to trigger the transition
+    // Centralized function to update DOM elements
+    const updateLightboxContent = (index) => {
+        const imgElement = galleryImages[index];
+        lightboxImg.src = imgElement.src;
+        lightboxTitle.textContent = imgElement.dataset.title || '';
+        lightboxDesc.textContent = imgElement.dataset.description || '';
+    };
+
+    const openLightbox = (index) => {
+        currentIndex = index;
+        updateLightboxContent(currentIndex);
         lightbox.classList.add('active');
-        
-        // Prevent background scrolling
         document.body.style.overflow = 'hidden'; 
     };
 
     const closeLightbox = () => {
-        // Remove the CSS class to trigger the reverse transition
         lightbox.classList.remove('active');
-        
-        // Restore background scrolling
         document.body.style.overflow = '';
-        
-        /* Crucial for smooth UX: We do NOT clear lightboxImg.src here. 
-           We let the image fade out with the lightbox. 
-           If we cleared it instantly, you'd see the image disappear 
-           while the black background was still fading.
-        */
     };
 
-    // --- Event Listeners ---
+    // Navigation logic with modulo operator for infinite looping
+    const showNext = () => {
+        currentIndex = (currentIndex + 1) % galleryImages.length;
+        updateLightboxContent(currentIndex);
+    };
 
-    // 1. Click on Gallery Image
-    galleryImages.forEach(img => {
-        img.addEventListener('click', (e) => {
-            openLightbox(e.target.src);
+    const showPrev = () => {
+        currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+        updateLightboxContent(currentIndex);
+    };
+
+    // Bind event listeners to gallery images, passing the array index
+    galleryImages.forEach((img, index) => {
+        img.addEventListener('click', () => {
+            openLightbox(index);
         });
     });
 
-    // 2. Click Close Button
     closeBtn.addEventListener('click', closeLightbox);
 
-    // 3. Click the Black Overlay/Background
     lightbox.addEventListener('click', (e) => {
-        // Only close if the background itself was clicked (not the image)
         if (e.target === lightbox) {
             closeLightbox();
         }
     });
 
-    // 4. Press Escape Key
+    // Keyboard event listener mapping
     document.addEventListener('keydown', (e) => {
-        // Check if Escape was pressed AND if lightbox is actually open
-        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
-            closeLightbox();
-        }
+        if (!lightbox.classList.contains('active')) return;
+
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') showNext();
+        if (e.key === 'ArrowLeft') showPrev();
     });
 });

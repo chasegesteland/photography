@@ -109,6 +109,7 @@ body {
 .lightbox {
     /* Critical Change: Use opacity and visibility instead of display: none */
     display: flex; 
+    flex-direction: column; /* Stacks children vertically */
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -138,7 +139,7 @@ body {
 .lightbox-content {
     /* 1. Constraint (Existing, ensures it fits the viewport) */
     max-width: 90vw;
-    max-height: 90vh;
+    max-height: 80vh;
     object-fit: contain;
     
     /* 2. Frame Styling (The New Additions) */
@@ -165,6 +166,38 @@ body {
 /* Scale image up when active */
 .lightbox.active .lightbox-content {
     transform: scale(1);
+}
+
+/* --- New Rules for the Caption --- */
+.lightbox-caption {
+    margin-top: 20px;
+    color: #ffffff;
+    text-align: center;
+    max-width: 800px;
+    padding: 0 20px;
+    
+    /* Animation matching the image */
+    transform: translateY(10px);
+    transition: transform 0.3s ease-in-out;
+}
+
+.lightbox.active .lightbox-caption {
+    transform: translateY(0);
+}
+
+.lightbox-caption h3 {
+    margin: 0 0 5px 0;
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.lightbox-caption p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #b3b3b3;
+    font-weight: 300;
+    line-height: 1.4;
 }
 
 /* Close Button */
