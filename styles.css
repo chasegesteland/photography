@@ -147,7 +147,7 @@ body {
     
     /* Creates the gap between the image edge and the shadow. 
        Adjust this number (e.g., 10px, 30px) for a thinner/thicker mat. */
-    padding: 40px; 
+    padding: 20px; 
     
     /* Optional slight corner rounding */
     border-radius: 4px; 
